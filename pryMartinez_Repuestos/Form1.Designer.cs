@@ -45,10 +45,8 @@
             lblOrigen = new Label();
             lblMarca = new Label();
             tabPage2 = new TabPage();
+            cmbOrigen = new ComboBox();
             cmbMarca = new ComboBox();
-            rbImportado2 = new RadioButton();
-            rbNacional2 = new RadioButton();
-            btnConsultar = new Button();
             lblOrigen2 = new Label();
             lblMarca2 = new Label();
             dataGridView2 = new DataGridView();
@@ -57,17 +55,27 @@
             colOrigen = new DataGridViewTextBoxColumn();
             colNumero = new DataGridViewTextBoxColumn();
             colDescripcion = new DataGridViewTextBoxColumn();
+            tabPage3 = new TabPage();
+            lstResultados = new ListBox();
+            rbImpoprtadoConsulta = new RadioButton();
+            rbNacionalConsulta = new RadioButton();
+            cmbConsultaMarca = new ComboBox();
+            lblOrigenConsulta = new Label();
+            lblMarcaConsulta = new Label();
+            btnConsultar = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            tabPage3.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Location = new Point(14, 19);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -241,10 +249,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(cmbOrigen);
             tabPage2.Controls.Add(cmbMarca);
-            tabPage2.Controls.Add(rbImportado2);
-            tabPage2.Controls.Add(rbNacional2);
-            tabPage2.Controls.Add(btnConsultar);
             tabPage2.Controls.Add(lblOrigen2);
             tabPage2.Controls.Add(lblMarca2);
             tabPage2.Controls.Add(dataGridView2);
@@ -254,8 +260,17 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(453, 388);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Consulta";
+            tabPage2.Text = "Grilla";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // cmbOrigen
+            // 
+            cmbOrigen.FormattingEnabled = true;
+            cmbOrigen.Items.AddRange(new object[] { "Nacional", "Importado" });
+            cmbOrigen.Location = new Point(156, 71);
+            cmbOrigen.Name = "cmbOrigen";
+            cmbOrigen.Size = new Size(234, 23);
+            cmbOrigen.TabIndex = 9;
             // 
             // cmbMarca
             // 
@@ -265,38 +280,6 @@
             cmbMarca.Name = "cmbMarca";
             cmbMarca.Size = new Size(234, 23);
             cmbMarca.TabIndex = 7;
-            // 
-            // rbImportado2
-            // 
-            rbImportado2.AutoSize = true;
-            rbImportado2.Location = new Point(300, 74);
-            rbImportado2.Name = "rbImportado2";
-            rbImportado2.Size = new Size(81, 19);
-            rbImportado2.TabIndex = 6;
-            rbImportado2.TabStop = true;
-            rbImportado2.Text = "Importado";
-            rbImportado2.UseVisualStyleBackColor = true;
-            // 
-            // rbNacional2
-            // 
-            rbNacional2.AutoSize = true;
-            rbNacional2.Location = new Point(145, 74);
-            rbNacional2.Name = "rbNacional2";
-            rbNacional2.Size = new Size(72, 19);
-            rbNacional2.TabIndex = 5;
-            rbNacional2.TabStop = true;
-            rbNacional2.Text = "Nacional";
-            rbNacional2.UseVisualStyleBackColor = true;
-            // 
-            // btnConsultar
-            // 
-            btnConsultar.Location = new Point(342, 116);
-            btnConsultar.Name = "btnConsultar";
-            btnConsultar.Size = new Size(75, 23);
-            btnConsultar.TabIndex = 4;
-            btnConsultar.Text = "Consultar";
-            btnConsultar.UseVisualStyleBackColor = true;
-            btnConsultar.Click += btnConsultar_Click;
             // 
             // lblOrigen2
             // 
@@ -328,7 +311,7 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colMarca, colOrigen, colNumero, colDescripcion });
-            dataGridView1.Location = new Point(7, 191);
+            dataGridView1.Location = new Point(9, 128);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(441, 121);
             dataGridView1.TabIndex = 0;
@@ -354,6 +337,92 @@
             colDescripcion.HeaderText = "Descripción";
             colDescripcion.Name = "colDescripcion";
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(lstResultados);
+            tabPage3.Controls.Add(rbImpoprtadoConsulta);
+            tabPage3.Controls.Add(rbNacionalConsulta);
+            tabPage3.Controls.Add(cmbConsultaMarca);
+            tabPage3.Controls.Add(lblOrigenConsulta);
+            tabPage3.Controls.Add(lblMarcaConsulta);
+            tabPage3.Controls.Add(btnConsultar);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(453, 388);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Consulta";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lstResultados
+            // 
+            lstResultados.FormattingEnabled = true;
+            lstResultados.ItemHeight = 15;
+            lstResultados.Location = new Point(42, 176);
+            lstResultados.Name = "lstResultados";
+            lstResultados.Size = new Size(384, 94);
+            lstResultados.TabIndex = 6;
+            lstResultados.SelectedIndexChanged += lstResultados_SelectedIndexChanged;
+            // 
+            // rbImpoprtadoConsulta
+            // 
+            rbImpoprtadoConsulta.AutoSize = true;
+            rbImpoprtadoConsulta.Location = new Point(311, 66);
+            rbImpoprtadoConsulta.Name = "rbImpoprtadoConsulta";
+            rbImpoprtadoConsulta.Size = new Size(81, 19);
+            rbImpoprtadoConsulta.TabIndex = 5;
+            rbImpoprtadoConsulta.TabStop = true;
+            rbImpoprtadoConsulta.Text = "Importado";
+            rbImpoprtadoConsulta.UseVisualStyleBackColor = true;
+            // 
+            // rbNacionalConsulta
+            // 
+            rbNacionalConsulta.AutoSize = true;
+            rbNacionalConsulta.Location = new Point(153, 64);
+            rbNacionalConsulta.Name = "rbNacionalConsulta";
+            rbNacionalConsulta.Size = new Size(72, 19);
+            rbNacionalConsulta.TabIndex = 4;
+            rbNacionalConsulta.TabStop = true;
+            rbNacionalConsulta.Text = "Nacional";
+            rbNacionalConsulta.UseVisualStyleBackColor = true;
+            // 
+            // cmbConsultaMarca
+            // 
+            cmbConsultaMarca.FormattingEnabled = true;
+            cmbConsultaMarca.Items.AddRange(new object[] { "F - FIAT", "R - RENAULT", "P - PEUGEOT" });
+            cmbConsultaMarca.Location = new Point(153, 18);
+            cmbConsultaMarca.Name = "cmbConsultaMarca";
+            cmbConsultaMarca.Size = new Size(215, 23);
+            cmbConsultaMarca.TabIndex = 3;
+            // 
+            // lblOrigenConsulta
+            // 
+            lblOrigenConsulta.AutoSize = true;
+            lblOrigenConsulta.Location = new Point(27, 65);
+            lblOrigenConsulta.Name = "lblOrigenConsulta";
+            lblOrigenConsulta.Size = new Size(43, 15);
+            lblOrigenConsulta.TabIndex = 2;
+            lblOrigenConsulta.Text = "Origen";
+            // 
+            // lblMarcaConsulta
+            // 
+            lblMarcaConsulta.AutoSize = true;
+            lblMarcaConsulta.Location = new Point(25, 21);
+            lblMarcaConsulta.Name = "lblMarcaConsulta";
+            lblMarcaConsulta.Size = new Size(40, 15);
+            lblMarcaConsulta.TabIndex = 1;
+            lblMarcaConsulta.Text = "Marca";
+            // 
+            // btnConsultar
+            // 
+            btnConsultar.Location = new Point(330, 124);
+            btnConsultar.Name = "btnConsultar";
+            btnConsultar.Size = new Size(96, 28);
+            btnConsultar.TabIndex = 0;
+            btnConsultar.Text = "Consultar";
+            btnConsultar.UseVisualStyleBackColor = true;
+            btnConsultar.Click += btnConsultar_Click_1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -370,6 +439,8 @@
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -398,11 +469,17 @@
         private DataGridViewTextBoxColumn colNumero;
         private DataGridViewTextBoxColumn colDescripcion;
         private DataGridView dataGridView2;
-        private Button btnConsultar;
         private Label lblOrigen2;
         private Label lblMarca2;
         private ComboBox cmbMarca;
-        private RadioButton rbImportado2;
-        private RadioButton rbNacional2;
+        private ComboBox cmbOrigen;
+        private TabPage tabPage3;
+        private RadioButton rbImpoprtadoConsulta;
+        private RadioButton rbNacionalConsulta;
+        private ComboBox cmbConsultaMarca;
+        private Label lblOrigenConsulta;
+        private Label lblMarcaConsulta;
+        private Button btnConsultar;
+        private ListBox lstResultados;
     }
 }
