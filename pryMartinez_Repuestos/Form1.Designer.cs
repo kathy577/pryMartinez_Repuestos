@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             txtNumero = new MaskedTextBox();
@@ -76,7 +77,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
-            tabControl1.Location = new Point(14, 19);
+            tabControl1.Location = new Point(5, 19);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(461, 416);
@@ -284,18 +285,20 @@
             // lblOrigen2
             // 
             lblOrigen2.AutoSize = true;
+            lblOrigen2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblOrigen2.Location = new Point(32, 74);
             lblOrigen2.Name = "lblOrigen2";
-            lblOrigen2.Size = new Size(43, 15);
+            lblOrigen2.Size = new Size(56, 20);
             lblOrigen2.TabIndex = 3;
             lblOrigen2.Text = "Origen";
             // 
             // lblMarca2
             // 
             lblMarca2.AutoSize = true;
+            lblMarca2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblMarca2.Location = new Point(32, 28);
             lblMarca2.Name = "lblMarca2";
-            lblMarca2.Size = new Size(40, 15);
+            lblMarca2.Size = new Size(52, 20);
             lblMarca2.TabIndex = 2;
             lblMarca2.Text = "Marca";
             // 
@@ -398,18 +401,20 @@
             // lblOrigenConsulta
             // 
             lblOrigenConsulta.AutoSize = true;
+            lblOrigenConsulta.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblOrigenConsulta.Location = new Point(27, 65);
             lblOrigenConsulta.Name = "lblOrigenConsulta";
-            lblOrigenConsulta.Size = new Size(43, 15);
+            lblOrigenConsulta.Size = new Size(56, 20);
             lblOrigenConsulta.TabIndex = 2;
             lblOrigenConsulta.Text = "Origen";
             // 
             // lblMarcaConsulta
             // 
             lblMarcaConsulta.AutoSize = true;
-            lblMarcaConsulta.Location = new Point(25, 21);
+            lblMarcaConsulta.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblMarcaConsulta.Location = new Point(30, 21);
             lblMarcaConsulta.Name = "lblMarcaConsulta";
-            lblMarcaConsulta.Size = new Size(40, 15);
+            lblMarcaConsulta.Size = new Size(52, 20);
             lblMarcaConsulta.TabIndex = 1;
             lblMarcaConsulta.Text = "Marca";
             // 
@@ -427,8 +432,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.IndianRed;
             ClientSize = new Size(478, 447);
             Controls.Add(tabControl1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Registro Repuestos";
             Load += Form1_Load;

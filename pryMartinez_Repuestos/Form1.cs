@@ -2,7 +2,7 @@ namespace pryMartinez_Repuestos
 {
     public partial class Form1 : Form
     {
-        string[,] matRepuesto = new string[4, 5];
+        string[,] matRepuesto = new string[100, 5];
         public Form1()
         {
             InitializeComponent();
