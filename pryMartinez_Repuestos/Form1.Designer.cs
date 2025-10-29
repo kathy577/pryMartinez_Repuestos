@@ -114,6 +114,7 @@
             txtNumero.Size = new Size(197, 23);
             txtNumero.TabIndex = 14;
             txtNumero.ValidatingType = typeof(int);
+            txtNumero.MaskInputRejected += txtNumero_MaskInputRejected;
             // 
             // lstDescripcion
             // 

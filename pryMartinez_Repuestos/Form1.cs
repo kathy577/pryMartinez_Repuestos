@@ -9,10 +9,11 @@ namespace pryMartinez_Repuestos
         }
         public class Repuesto
         {
-            public string Marca;
-            public string Origen;
-            public string Descripcion;
-            public double Precio;
+            public string Marca;       // P, F, R
+            public string Origen;      // N, I
+            public int Numero;         // hasta 6 dígitos
+            public string Descripcion; // hasta 50 caracteres
+            public float Precio;       // positivo
         }
 
         Repuesto[] repuestos = new Repuesto[100];
@@ -25,19 +26,19 @@ namespace pryMartinez_Repuestos
 
         private void btnRegistar_Click(object sender, EventArgs e)
         {
+            string marca = rbPeugeot.Checked ? "P" :
+               rbFiat.Checked ? "F" :
+               rbRenault.Checked ? "R" : "";
+
+            string origen = rbNacional.Checked ? "N" :
+                            rbImportado.Checked ? "I" : "";
+
             {
                 if (cantidad >= repuestos.Length)
                 {
                     MessageBox.Show("No se pueden agregar más repuestos.");
                     return;
                 }
-
-                string marca = rbPeugeot.Checked ? "Peugeot" :
-                               rbFiat.Checked ? "Fiat" :
-                               rbRenault.Checked ? "Renault" : "";
-
-                string origen = rbNacional.Checked ? "Nacional" :
-                                rbImportado.Checked ? "Importado" : "";
 
                 string descripcion = lstDescripcion.Text;
                 if (!double.TryParse(txtPrecio.Text, out double precio))
@@ -105,7 +106,7 @@ namespace pryMartinez_Repuestos
 
         }
         private void CargadorDatos()
-      
+
         {
             string[] marcas = { "P", "F", "R" };
             string[] origenes = { "N", "I" };
@@ -124,13 +125,13 @@ namespace pryMartinez_Repuestos
                 string origen = origenes[rnd.Next(origenes.Length)];
                 string descripcion = descripciones[rnd.Next(descripciones.Length)] + $" {rnd.Next(1, 6)}";
                 double precio = rnd.Next(1500, 12000) + rnd.NextDouble(); // precios entre 1500 y 12000
-              
+
 
                 matRepuesto[i, 0] = marca;
                 matRepuesto[i, 1] = origen == "N" ? "Nacional" : "Importado";
                 matRepuesto[i, 2] = descripcion;
                 matRepuesto[i, 3] = precio.ToString("F2");
-               
+
             }
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -168,8 +169,8 @@ namespace pryMartinez_Repuestos
             }
 
             // Limpiar resultados anteriores
-            lstResultados.Items.Clear(); 
-                                         
+            lstResultados.Items.Clear();
+
 
             int contador = 0;
 
@@ -183,7 +184,7 @@ namespace pryMartinez_Repuestos
                     string resultado = $"{contador}. {repuestos[i].Descripcion} - ${repuestos[i].Precio:F2}";
 
                     lstResultados.Items.Add(resultado);
-                                                       
+
                 }
             }
 
@@ -191,6 +192,26 @@ namespace pryMartinez_Repuestos
             {
                 MessageBox.Show("No se encontraron repuestos con esos criterios.");
             }
+        }
+
+        private void txtNumero_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            if (!int.TryParse(txtNumero.Text, out int numero) || numero < 0 || numero > 999999)
+            {
+                MessageBox.Show("Número inválido. Debe ser un número de hasta 6 dígitos.");
+                return;
+            }
+
+            // Verificar duplicado
+            for (int i = 0; i < cantidad; i++)
+            {
+                if (matRepuesto[i, 4] == numero.ToString())
+                {
+                    MessageBox.Show("Ya existe un repuesto con ese número.");
+                    return;
+                }
+            }
+
         }
     }
 }
