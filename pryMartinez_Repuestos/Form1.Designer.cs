@@ -444,6 +444,7 @@
             Controls.Add(tabControl1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Registro Repuestos";
             Load += Form1_Load;
             tabControl1.ResumeLayout(false);

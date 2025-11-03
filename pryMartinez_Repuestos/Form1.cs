@@ -20,6 +20,7 @@ namespace pryMartinez_Repuestos
             public required string Origen { get; set; }
             public required string Descripcion { get; set; }
             public double Precio { get; set; }
+            public string Numero { get; set; } = "";
         }
 
        
@@ -42,6 +43,8 @@ namespace pryMartinez_Repuestos
 
             string origen = rbNacional.Checked ? "Nacional" :
                             rbImportado.Checked ? "Importado" : "";
+            string numero = txtNumero.Text.Trim();
+
 
             string descripcion = txtDescripcion.Text;
 
@@ -53,10 +56,13 @@ namespace pryMartinez_Repuestos
 
             repuestos[cantidad] = new Repuesto
             {
-                Marca = marca,
-                Origen = origen,
-                Descripcion = descripcion,
-                Precio = precio,
+               
+                    Marca = marca,
+                    Origen = origen,
+                    Descripcion = descripcion,
+                    Precio = precio,
+                    Numero = numero
+                
             };
 
             cantidad++;
@@ -70,14 +76,17 @@ namespace pryMartinez_Repuestos
             rbRenault.Checked = false;
             rbNacional.Checked = false;
             rbImportado.Checked = false;
-      
 
 
+
+         
 
             matRepuesto[indiceGrabar, 0] = marca;
             matRepuesto[indiceGrabar, 1] = origen;
             matRepuesto[indiceGrabar, 2] = descripcion;
             matRepuesto[indiceGrabar, 3] = precio.ToString();
+            matRepuesto[indiceGrabar, 4] = numero;
+
             indiceGrabar++;
 
 
@@ -88,7 +97,8 @@ namespace pryMartinez_Repuestos
             CargadorDatos();
             MessageBox.Show("Datos Cargados Correctamente");
             string[] marcas = { "Peugeot", "Fiat", "Renault" };
-            cmbMarca.DataSource = marcas.ToList();
+            cmbMarca.DataSource = new List<string> { "Peugeot", "Fiat", "Renault" };
+
 
             List<string> origenes = new List<string>();
             List<string> listaMarcas = new List<string>();
@@ -126,7 +136,7 @@ namespace pryMartinez_Repuestos
         private void CargadorDatos()
 
         {
-            string[] marcas = { "P", "F", "R" };
+            string[] marcas = { "Peugeot", "Fiat", "Renault" };
             string[] origenes = { "N", "I" };
             string[] descripciones = {
         "Filtro de aceite", "Pastillas de freno", "Bujía", "Amortiguador", "Correa de distribución",
@@ -140,17 +150,19 @@ namespace pryMartinez_Repuestos
             for (int i = 0; i < 100; i++)
             {
                 string marca = marcas[rnd.Next(marcas.Length)];
-                string origen = origenes[rnd.Next(origenes.Length)];
+                string origen = origenes[rnd.Next(origenes.Length)] == "N" ? "Nacional" : "Importado";
                 string descripcion = descripciones[rnd.Next(descripciones.Length)] + $" {rnd.Next(1, 6)}";
-                double precio = rnd.Next(1500, 12000) + rnd.NextDouble(); // precios entre 1500 y 12000
-
+                double precio = rnd.Next(1500, 12000) + rnd.NextDouble();
 
                 matRepuesto[i, 0] = marca;
-                matRepuesto[i, 1] = origen == "N" ? "Nacional" : "Importado";
+                matRepuesto[i, 1] = origen;
                 matRepuesto[i, 2] = descripcion;
                 matRepuesto[i, 3] = precio.ToString("F2");
 
+                // Mostrar en la grilla
+                dataGridView1.Rows.Add(marca, origen, descripcion, precio.ToString("F2"));
             }
+
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -170,13 +182,14 @@ namespace pryMartinez_Repuestos
         private void btnConsultar_Click_1(object sender, EventArgs e)
 
         {
-            if (cmbMarca.SelectedItem == null)
+            if (cmbConsultaMarca.SelectedItem == null)
             {
                 MessageBox.Show("Seleccioná una marca.");
                 return;
             }
 
-            string marcaSeleccionada = cmbMarca.SelectedItem.ToString();
+            string marcaSeleccionada = cmbConsultaMarca.SelectedItem?.ToString() ?? "";
+
             string origenSeleccionado = rbNacionalConsulta.Checked ? "Nacional" :
                                         rbImportadoConsulta.Checked ? "Importado" : "";
 
@@ -191,12 +204,9 @@ namespace pryMartinez_Repuestos
 
             for (int i = 0; i < cantidad; i++)
             {
-                string marcaLetra = repuestos[i].Marca.Substring(0, 1).ToUpper();
-
                 if (repuestos[i].Marca == marcaSeleccionada && repuestos[i].Origen == origenSeleccionado)
-
-                    {
-                        contador++;
+                {
+                    contador++;
                     string resultado = $"{contador}. {repuestos[i].Descripcion} - ${repuestos[i].Precio:F2}";
                     lstResultados.Items.Add(resultado);
                 }
