@@ -31,20 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            txtNumero = new MaskedTextBox();
-            lstDescripcion = new ListBox();
-            rbImportado = new RadioButton();
+            txtDescripcion = new TextBox();
+            groupBox2 = new GroupBox();
             rbNacional = new RadioButton();
-            rbRenault = new RadioButton();
-            rbFiat = new RadioButton();
+            rbImportado = new RadioButton();
+            groupBox1 = new GroupBox();
             rbPeugeot = new RadioButton();
+            rbFiat = new RadioButton();
+            rbRenault = new RadioButton();
+            txtNumero = new MaskedTextBox();
             txtPrecio = new TextBox();
             btnRegistar = new Button();
             lblDescripcion = new Label();
             lblPrecio = new Label();
             lblNumero = new Label();
-            lblOrigen = new Label();
-            lblMarca = new Label();
             tabPage2 = new TabPage();
             cmbOrigen = new ComboBox();
             cmbMarca = new ComboBox();
@@ -58,7 +58,7 @@
             colDescripcion = new DataGridViewTextBoxColumn();
             tabPage3 = new TabPage();
             lstResultados = new ListBox();
-            rbImpoprtadoConsulta = new RadioButton();
+            rbImportadoConsulta = new RadioButton();
             rbNacionalConsulta = new RadioButton();
             cmbConsultaMarca = new ComboBox();
             lblOrigenConsulta = new Label();
@@ -66,6 +66,8 @@
             btnConsultar = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -85,20 +87,15 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(txtDescripcion);
+            tabPage1.Controls.Add(groupBox2);
+            tabPage1.Controls.Add(groupBox1);
             tabPage1.Controls.Add(txtNumero);
-            tabPage1.Controls.Add(lstDescripcion);
-            tabPage1.Controls.Add(rbImportado);
-            tabPage1.Controls.Add(rbNacional);
-            tabPage1.Controls.Add(rbRenault);
-            tabPage1.Controls.Add(rbFiat);
-            tabPage1.Controls.Add(rbPeugeot);
             tabPage1.Controls.Add(txtPrecio);
             tabPage1.Controls.Add(btnRegistar);
             tabPage1.Controls.Add(lblDescripcion);
             tabPage1.Controls.Add(lblPrecio);
             tabPage1.Controls.Add(lblNumero);
-            tabPage1.Controls.Add(lblOrigen);
-            tabPage1.Controls.Add(lblMarca);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -106,81 +103,109 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Registro";
             tabPage1.UseVisualStyleBackColor = true;
+            tabPage1.Click += tabPage1_Click;
             // 
-            // txtNumero
+            // txtDescripcion
             // 
-            txtNumero.Location = new Point(119, 124);
-            txtNumero.Name = "txtNumero";
-            txtNumero.Size = new Size(197, 23);
-            txtNumero.TabIndex = 14;
-            txtNumero.ValidatingType = typeof(int);
-            txtNumero.MaskInputRejected += txtNumero_MaskInputRejected;
+            txtDescripcion.Location = new Point(20, 251);
+            txtDescripcion.Name = "txtDescripcion";
+            txtDescripcion.Size = new Size(379, 23);
+            txtDescripcion.TabIndex = 17;
             // 
-            // lstDescripcion
+            // groupBox2
             // 
-            lstDescripcion.FormattingEnabled = true;
-            lstDescripcion.ItemHeight = 15;
-            lstDescripcion.Location = new Point(19, 250);
-            lstDescripcion.Name = "lstDescripcion";
-            lstDescripcion.Size = new Size(305, 79);
-            lstDescripcion.TabIndex = 12;
-            // 
-            // rbImportado
-            // 
-            rbImportado.AutoSize = true;
-            rbImportado.Location = new Point(252, 77);
-            rbImportado.Name = "rbImportado";
-            rbImportado.Size = new Size(81, 19);
-            rbImportado.TabIndex = 11;
-            rbImportado.TabStop = true;
-            rbImportado.Text = "Importado";
-            rbImportado.UseVisualStyleBackColor = true;
+            groupBox2.Controls.Add(rbNacional);
+            groupBox2.Controls.Add(rbImportado);
+            groupBox2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox2.Location = new Point(19, 77);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(392, 56);
+            groupBox2.TabIndex = 16;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Origen";
+            groupBox2.Enter += groupBox2_Enter;
             // 
             // rbNacional
             // 
             rbNacional.AutoSize = true;
-            rbNacional.Location = new Point(133, 77);
+            rbNacional.Location = new Point(72, 26);
             rbNacional.Name = "rbNacional";
-            rbNacional.Size = new Size(72, 19);
+            rbNacional.Size = new Size(88, 24);
             rbNacional.TabIndex = 10;
             rbNacional.TabStop = true;
             rbNacional.Text = "Nacional";
             rbNacional.UseVisualStyleBackColor = true;
             rbNacional.CheckedChanged += rbNacional_CheckedChanged;
             // 
+            // rbImportado
+            // 
+            rbImportado.AutoSize = true;
+            rbImportado.Location = new Point(241, 26);
+            rbImportado.Name = "rbImportado";
+            rbImportado.Size = new Size(99, 24);
+            rbImportado.TabIndex = 11;
+            rbImportado.TabStop = true;
+            rbImportado.Text = "Importado";
+            rbImportado.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(rbPeugeot);
+            groupBox1.Controls.Add(rbFiat);
+            groupBox1.Controls.Add(rbRenault);
+            groupBox1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.Location = new Point(19, 6);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(392, 65);
+            groupBox1.TabIndex = 15;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Marca";
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // rbPeugeot
+            // 
+            rbPeugeot.AutoSize = true;
+            rbPeugeot.Location = new Point(64, 22);
+            rbPeugeot.Name = "rbPeugeot";
+            rbPeugeot.Size = new Size(40, 24);
+            rbPeugeot.TabIndex = 7;
+            rbPeugeot.TabStop = true;
+            rbPeugeot.Text = "P ";
+            rbPeugeot.UseVisualStyleBackColor = true;
+            rbPeugeot.CheckedChanged += rbPeugeot_CheckedChanged;
+            // 
+            // rbFiat
+            // 
+            rbFiat.AutoSize = true;
+            rbFiat.Location = new Point(166, 22);
+            rbFiat.Name = "rbFiat";
+            rbFiat.Size = new Size(35, 24);
+            rbFiat.TabIndex = 8;
+            rbFiat.TabStop = true;
+            rbFiat.Text = "F";
+            rbFiat.UseVisualStyleBackColor = true;
+            rbFiat.CheckedChanged += rbFiat_CheckedChanged;
+            // 
             // rbRenault
             // 
             rbRenault.AutoSize = true;
-            rbRenault.Location = new Point(275, 21);
+            rbRenault.Location = new Point(265, 22);
             rbRenault.Name = "rbRenault";
-            rbRenault.Size = new Size(32, 19);
+            rbRenault.Size = new Size(36, 24);
             rbRenault.TabIndex = 9;
             rbRenault.TabStop = true;
             rbRenault.Text = "R";
             rbRenault.UseVisualStyleBackColor = true;
             rbRenault.CheckedChanged += radioButton1_CheckedChanged;
             // 
-            // rbFiat
+            // txtNumero
             // 
-            rbFiat.AutoSize = true;
-            rbFiat.Location = new Point(202, 21);
-            rbFiat.Name = "rbFiat";
-            rbFiat.Size = new Size(31, 19);
-            rbFiat.TabIndex = 8;
-            rbFiat.TabStop = true;
-            rbFiat.Text = "F";
-            rbFiat.UseVisualStyleBackColor = true;
-            // 
-            // rbPeugeot
-            // 
-            rbPeugeot.AutoSize = true;
-            rbPeugeot.Location = new Point(130, 21);
-            rbPeugeot.Name = "rbPeugeot";
-            rbPeugeot.Size = new Size(35, 19);
-            rbPeugeot.TabIndex = 7;
-            rbPeugeot.TabStop = true;
-            rbPeugeot.Text = "P ";
-            rbPeugeot.UseVisualStyleBackColor = true;
+            txtNumero.Location = new Point(119, 136);
+            txtNumero.Name = "txtNumero";
+            txtNumero.Size = new Size(197, 23);
+            txtNumero.TabIndex = 14;
+            txtNumero.ValidatingType = typeof(int);
+            txtNumero.MaskInputRejected += txtNumero_MaskInputRejected;
             // 
             // txtPrecio
             // 
@@ -223,31 +248,11 @@
             // 
             lblNumero.AutoSize = true;
             lblNumero.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblNumero.Location = new Point(19, 124);
+            lblNumero.Location = new Point(19, 136);
             lblNumero.Name = "lblNumero";
             lblNumero.Size = new Size(66, 20);
             lblNumero.TabIndex = 2;
             lblNumero.Text = "Nùmero";
-            // 
-            // lblOrigen
-            // 
-            lblOrigen.AutoSize = true;
-            lblOrigen.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblOrigen.Location = new Point(19, 75);
-            lblOrigen.Name = "lblOrigen";
-            lblOrigen.Size = new Size(56, 20);
-            lblOrigen.TabIndex = 1;
-            lblOrigen.Text = "Origen";
-            // 
-            // lblMarca
-            // 
-            lblMarca.AutoSize = true;
-            lblMarca.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblMarca.Location = new Point(19, 21);
-            lblMarca.Name = "lblMarca";
-            lblMarca.Size = new Size(52, 20);
-            lblMarca.TabIndex = 0;
-            lblMarca.Text = "Marca";
             // 
             // tabPage2
             // 
@@ -344,7 +349,7 @@
             // tabPage3
             // 
             tabPage3.Controls.Add(lstResultados);
-            tabPage3.Controls.Add(rbImpoprtadoConsulta);
+            tabPage3.Controls.Add(rbImportadoConsulta);
             tabPage3.Controls.Add(rbNacionalConsulta);
             tabPage3.Controls.Add(cmbConsultaMarca);
             tabPage3.Controls.Add(lblOrigenConsulta);
@@ -368,16 +373,16 @@
             lstResultados.TabIndex = 6;
             lstResultados.SelectedIndexChanged += lstResultados_SelectedIndexChanged;
             // 
-            // rbImpoprtadoConsulta
+            // rbImportadoConsulta
             // 
-            rbImpoprtadoConsulta.AutoSize = true;
-            rbImpoprtadoConsulta.Location = new Point(311, 66);
-            rbImpoprtadoConsulta.Name = "rbImpoprtadoConsulta";
-            rbImpoprtadoConsulta.Size = new Size(81, 19);
-            rbImpoprtadoConsulta.TabIndex = 5;
-            rbImpoprtadoConsulta.TabStop = true;
-            rbImpoprtadoConsulta.Text = "Importado";
-            rbImpoprtadoConsulta.UseVisualStyleBackColor = true;
+            rbImportadoConsulta.AutoSize = true;
+            rbImportadoConsulta.Location = new Point(311, 66);
+            rbImportadoConsulta.Name = "rbImportadoConsulta";
+            rbImportadoConsulta.Size = new Size(81, 19);
+            rbImportadoConsulta.TabIndex = 5;
+            rbImportadoConsulta.TabStop = true;
+            rbImportadoConsulta.Text = "Importado";
+            rbImportadoConsulta.UseVisualStyleBackColor = true;
             // 
             // rbNacionalConsulta
             // 
@@ -398,6 +403,7 @@
             cmbConsultaMarca.Name = "cmbConsultaMarca";
             cmbConsultaMarca.Size = new Size(215, 23);
             cmbConsultaMarca.TabIndex = 3;
+            cmbConsultaMarca.SelectedIndexChanged += cmbConsultaMarca_SelectedIndexChanged;
             // 
             // lblOrigenConsulta
             // 
@@ -443,6 +449,10 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
@@ -459,8 +469,6 @@
         private Label lblDescripcion;
         private Label lblPrecio;
         private Label lblNumero;
-        private Label lblOrigen;
-        private Label lblMarca;
         private TabPage tabPage2;
         private Button btnRegistar;
         private RadioButton rbFiat;
@@ -469,7 +477,6 @@
         private RadioButton rbImportado;
         private RadioButton rbNacional;
         private RadioButton rbRenault;
-        private ListBox lstDescripcion;
         private MaskedTextBox txtNumero;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn colMarca;
@@ -482,12 +489,15 @@
         private ComboBox cmbMarca;
         private ComboBox cmbOrigen;
         private TabPage tabPage3;
-        private RadioButton rbImpoprtadoConsulta;
+        private RadioButton rbImportadoConsulta;
         private RadioButton rbNacionalConsulta;
         private ComboBox cmbConsultaMarca;
         private Label lblOrigenConsulta;
         private Label lblMarcaConsulta;
         private Button btnConsultar;
         private ListBox lstResultados;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private TextBox txtDescripcion;
     }
 }

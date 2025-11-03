@@ -2,23 +2,27 @@ namespace pryMartinez_Repuestos
 {
     public partial class Form1 : Form
     {
+        // Matriz para almacenar datos simulados
         string[,] matRepuesto = new string[100, 5];
+
+        // Arreglo de objetos Repuesto
+        Repuesto[] repuestos = new Repuesto[100];
+        int cantidad = 0;
+        int indiceGrabar = 0;
+
         public Form1()
         {
             InitializeComponent();
         }
         public class Repuesto
         {
-            public string Marca;       // P, F, R
-            public string Origen;      // N, I
-            public int Numero;         // hasta 6 dígitos
-            public string Descripcion; // hasta 50 caracteres
-            public float Precio;       // positivo
+            public required string Marca { get; set; }
+            public required string Origen { get; set; }
+            public required string Descripcion { get; set; }
+            public double Precio { get; set; }
         }
 
-        Repuesto[] repuestos = new Repuesto[100];
-        int cantidad = 0;
-        int indiceGrabar = 0;
+       
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -26,75 +30,89 @@ namespace pryMartinez_Repuestos
 
         private void btnRegistar_Click(object sender, EventArgs e)
         {
-            string marca = rbPeugeot.Checked ? "P" :
-               rbFiat.Checked ? "F" :
-               rbRenault.Checked ? "R" : "";
-
-            string origen = rbNacional.Checked ? "N" :
-                            rbImportado.Checked ? "I" : "";
-
+            if (cantidad >= repuestos.Length)
             {
-                if (cantidad >= repuestos.Length)
-                {
-                    MessageBox.Show("No se pueden agregar más repuestos.");
-                    return;
-                }
-
-                string descripcion = lstDescripcion.Text;
-                if (!double.TryParse(txtPrecio.Text, out double precio))
-                {
-                    MessageBox.Show("Precio inválido.");
-                    return;
-                }
-
-                repuestos[cantidad] = new Repuesto
-                {
-                    Marca = marca,
-                    Origen = origen,
-                    Descripcion = descripcion,
-                    Precio = precio
-                };
-
-                cantidad++;
-                MessageBox.Show("Repuesto agregado correctamente.");
-                lstDescripcion.Items.Clear();
-                txtPrecio.Clear();
-
-
-                matRepuesto[indiceGrabar, 0] = marca;
-                matRepuesto[indiceGrabar, 1] = origen;
-                matRepuesto[indiceGrabar, 2] = descripcion;
-                matRepuesto[indiceGrabar, 3] = precio.ToString();
-                indiceGrabar++;
-
-
-
+                MessageBox.Show("No se pueden agregar más repuestos.");
+                return;
             }
+
+            string marca = rbPeugeot.Checked ? "Peugeot" :
+                           rbFiat.Checked ? "Fiat" :
+                           rbRenault.Checked ? "Renault" : "";
+
+            string origen = rbNacional.Checked ? "Nacional" :
+                            rbImportado.Checked ? "Importado" : "";
+
+            string descripcion = txtDescripcion.Text;
+
+            if (!double.TryParse(txtPrecio.Text, out double precio))
+            {
+                MessageBox.Show("Precio inválido.");
+                return;
+            }
+
+            repuestos[cantidad] = new Repuesto
+            {
+                Marca = marca,
+                Origen = origen,
+                Descripcion = descripcion,
+                Precio = precio,
+            };
+
+            cantidad++;
+            MessageBox.Show("Repuesto agregado correctamente.");
+
+            txtDescripcion.Clear();
+            txtPrecio.Clear();
+            txtNumero.Clear();  
+            rbPeugeot.Checked = false;
+            rbFiat.Checked = false;
+            rbRenault.Checked = false;
+            rbNacional.Checked = false;
+            rbImportado.Checked = false;
+      
+
+
+
+            matRepuesto[indiceGrabar, 0] = marca;
+            matRepuesto[indiceGrabar, 1] = origen;
+            matRepuesto[indiceGrabar, 2] = descripcion;
+            matRepuesto[indiceGrabar, 3] = precio.ToString();
+            indiceGrabar++;
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             CargadorDatos();
             MessageBox.Show("Datos Cargados Correctamente");
+            string[] marcas = { "Peugeot", "Fiat", "Renault" };
+            cmbMarca.DataSource = marcas.ToList();
 
             List<string> origenes = new List<string>();
             List<string> listaMarcas = new List<string>();
 
             for (int filas = 0; filas < matRepuesto.GetLength(0); filas++)
             {
-                dataGridView1.Rows.Add(matRepuesto[filas, 0], matRepuesto[filas, 1], matRepuesto[filas, 2], matRepuesto[filas, 3], matRepuesto[filas, 4]);
-                if (!listaMarcas.Contains(matRepuesto[filas, 0]))
-                {
-                    listaMarcas.Add(matRepuesto[filas, 0]);
-                }
-                if (!origenes.Contains(matRepuesto[filas, 1]))
-                {
-                    origenes.Add(matRepuesto[filas, 1]);
-                }
+                dataGridView1.Rows.Add(
+                    matRepuesto[filas, 0],
+                    matRepuesto[filas, 1],
+                    matRepuesto[filas, 2],
+                    matRepuesto[filas, 3],
+                    matRepuesto[filas, 4]
+                );
 
-                cmbMarca.DataSource = listaMarcas;
-                cmbOrigen.DataSource = origenes;
+                if (!listaMarcas.Contains(matRepuesto[filas, 0]))
+                    listaMarcas.Add(matRepuesto[filas, 0]);
+
+                if (!origenes.Contains(matRepuesto[filas, 1]))
+                    origenes.Add(matRepuesto[filas, 1]);
             }
+
+            cmbMarca.DataSource = listaMarcas;
+            cmbOrigen.DataSource = origenes;
+
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -150,8 +168,8 @@ namespace pryMartinez_Repuestos
         }
 
         private void btnConsultar_Click_1(object sender, EventArgs e)
+
         {
-            // Validación de selección
             if (cmbMarca.SelectedItem == null)
             {
                 MessageBox.Show("Seleccioná una marca.");
@@ -160,7 +178,7 @@ namespace pryMartinez_Repuestos
 
             string marcaSeleccionada = cmbMarca.SelectedItem.ToString();
             string origenSeleccionado = rbNacionalConsulta.Checked ? "Nacional" :
-                                         rbImpoprtadoConsulta.Checked ? "Importado" : "";
+                                        rbImportadoConsulta.Checked ? "Importado" : "";
 
             if (origenSeleccionado == "")
             {
@@ -168,23 +186,19 @@ namespace pryMartinez_Repuestos
                 return;
             }
 
-            // Limpiar resultados anteriores
             lstResultados.Items.Clear();
-
-
             int contador = 0;
 
             for (int i = 0; i < cantidad; i++)
             {
-                string marcaLetra = repuestos[i].Marca.Substring(0, 1).ToUpper(); // P, F, R
+                string marcaLetra = repuestos[i].Marca.Substring(0, 1).ToUpper();
 
-                if (marcaLetra == marcaSeleccionada && repuestos[i].Origen == origenSeleccionado)
-                {
-                    contador++;
+                if (repuestos[i].Marca == marcaSeleccionada && repuestos[i].Origen == origenSeleccionado)
+
+                    {
+                        contador++;
                     string resultado = $"{contador}. {repuestos[i].Descripcion} - ${repuestos[i].Precio:F2}";
-
                     lstResultados.Items.Add(resultado);
-
                 }
             }
 
@@ -193,6 +207,7 @@ namespace pryMartinez_Repuestos
                 MessageBox.Show("No se encontraron repuestos con esos criterios.");
             }
         }
+
 
         private void txtNumero_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
@@ -211,6 +226,52 @@ namespace pryMartinez_Repuestos
                     return;
                 }
             }
+
+        }
+        private void LimpiarCampos()
+        {
+            txtNumero.Clear();
+            txtDescripcion.Clear();
+            txtPrecio.Clear();
+            rbPeugeot.Checked = false;
+            rbFiat.Checked = false;
+            rbRenault.Checked = false;
+            rbNacional.Checked = false;
+            rbImportado.Checked = false;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblMarca_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbPeugeot_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbFiat_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbConsultaMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
